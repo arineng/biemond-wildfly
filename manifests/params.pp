@@ -3,13 +3,16 @@
 #
 class wildfly::params {
 
-  $manage_user  = true
-  $uid          = undef
-  $gid          = undef
-  $group        = 'wildfly'
-  $user         = 'wildfly'
-  $dirname      = '/opt/wildfly'
-  $service_name = 'wildfly'
+  $manage_user    = true
+  $uid            = undef
+  $gid            = undef
+  $group          = 'wildfly'
+  $user           = 'wildfly'
+  $dirname        = '/opt/wildfly'
+  $package_ensure = 'present'
+  $service_name   = 'wildfly'
+  $service_ensure = true
+  $service_enable = true
 
   $service_file  = $::osfamily? {
     'Debian' => 'wildfly-init-debian.sh',
@@ -50,11 +53,14 @@ class wildfly::params {
 
   $users_mgmt = {
     'wildfly' => {
-      username => 'wildfly',
       password => 'wildfly',
     },
   }
 
   $domain_slave = {}
-
+  $custom_init  = undef
+  $install_cache_dir = '/var/cache/wget'
+  $domain_controller_only = false
+  
+  $install_download_timeout = 500
 }
